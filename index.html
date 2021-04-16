@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Durham Vaccine Equity</title>
+    
+    <!-- import the webpage's stylesheet -->
+<!--     <link rel="stylesheet" href="https://unpkg.com/mvp.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css">
+
+    
+    <!-- import the webpage's javascript file -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.5/chartjs-plugin-annotation.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-dragdata@1.1.3/dist/chartjs-plugin-dragdata.min.js"></script>
+
+    <script src="/script.js" defer></script>
+    <style>
+      .hide { display: none; }
+      select {
+        width: 120px !important;  
+      }
+      
+      @media screen and (min-width: 600px) {
+        .hide-for-desktop {
+          display: none !important; 
+        }
+        .chart-container {
+          height: 50vh;
+        }
+      }
+      
+      @media screen and (max-width: 600px) {
+        .chart-container {
+          height:80vh;
+        }
+      }
+.topnav {
+  position: fixed;
+  overflow: hidden;
+  width: 100vw;
+  background-color: #333;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.topnav .icon {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .topnav a:not(:first-child), .dropdown .dropbtn {
+    display: none;
+  }
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .topnav.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+}
+      
+      [id]::before {
+  content: '';
+  display: block;
+  height:      75px;
+  margin-top: -75px;
+  visibility: hidden;
+}
+
+    </style>
+  </head>  
+  <body>
+
+    
+    <div class="topnav" id="myTopnav">
+  <a href="#" class="active">Durham Vaccine Equity  💚</a>
+  <a href="#overview">Overview</a>
+  <a href="#deepdive">Deep Dive</a>
+  <a href="#calculator">Calculator</a>
+  <a href="https://vacme.org">Vaccine Finder</a>
+  <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+</div>
+    
+    
+    <header style="margin-top:100px;">
+        <h1>Those vaccinated should reflect our <i>community</i></h1>
+        <p>How close are we to <b>vaccine equity</b> in Durham, NC? Last updated 4/8.</p>
+        <p>
+          <small class="hide-for-desktop">Works best on a tablet or desktop!</small>  
+        </p>
+    </header>
+    
+    <main>
+      
+      <h1 id="overview">Overview</h1>
+      
+      <p>
+        How well are different communities vaccinated?
+      </p>
+      
+      <table>
+        <thead>
+          <tr>
+            <thead>
+              <tr>
+                <td></td>
+                <th>White</th>
+                <th>Black</th>
+                <th>Hispanic</th>
+                <th>Native American</th>
+                <th>Asian or Pacific Islander</th>
+              </tr>
+            </thead>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Population</th>
+            <td class="js-pop-white"></td>
+            <td class="js-pop-black"></td>
+            <td class="js-pop-hispanic"></td>
+            <td class="js-pop-na"></td>
+            <td class="js-pop-api"></td> 
+          </tr>
+          <tr>
+            <th>Received Dose</th>
+            <td class="js-vax-white"></td>
+            <td class="js-vax-black"></td>
+            <td class="js-vax-hispanic"></td>
+            <td class="js-vax-na"></td>
+            <td class="js-vax-api"></td>              
+          </tr>
+          <tr>
+            <th>% Difference</th>
+            <td class="js-vaxdiff-white"></td>
+            <td class="js-vaxdiff-black"></td>
+            <td class="js-vaxdiff-hispanic"></td>
+            <td class="js-vaxdiff-na"></td>
+            <td class="js-vaxdiff-api"></td>              
+          </tr>
+        </tbody>
+      </table>
+      
+      <p>
+        How did COVID-19 impact different communities?
+      </p>
+      
+      <table>
+        <thead>
+          <tr>
+            <thead>
+              <tr>
+                <td></td>
+                <th>White</th>
+                <th>Black</th>
+                <th>Hispanic</th>
+                <th>Native American</th>
+                <th>Asian or Pacific Islander</th>
+              </tr>
+            </thead>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Population</th>
+            <td class="js-pop-white"></td>
+            <td class="js-pop-black"></td>
+            <td class="js-pop-hispanic"></td>
+            <td class="js-pop-na"></td>
+            <td class="js-pop-api"></td> 
+          </tr>
+          <tr>
+            <th>COVID Cases</th>
+            <td class="js-cases-white"></td>
+            <td class="js-cases-black"></td>
+            <td class="js-cases-hispanic"></td>
+            <td class="js-cases-na"></td>
+            <td class="js-cases-api"></td>
+          </tr>
+          <tr>
+            <th>% Difference</th>
+            <td class="js-casesdiff-white"></td>
+            <td class="js-casesdiff-black"></td>
+            <td class="js-casesdiff-hispanic"></td>
+            <td class="js-casesdiff-na"></td>
+            <td class="js-casesdiff-api"></td>              
+          </tr>
+        </tbody>
+      </table>
+      
+      <p>
+        All data in this analysis is based on information collected as of 4/8/21 from <a href="https://durhampublichealth-durhamnc.hub.arcgis.com/pages/vaccine-distribution">Durham's vaccine dashboard.</a>
+      </p>
+
+      
+      <p>
+        We need your help!
+        <a href="#" onclick="document.getElementsByClassName('js-we-need-help')[0].classList.toggle('hide'); return false">
+          Learn More
+        </a>
+      </p>
+      <p class="js-we-need-help hide">
+        We need help expanding this dashboard to additional counties and even states!
+        If you're interested, <a href="mailto:faraz@greenlightready.com">send us an email</a>.
+        We need web developers and data aggregators.
+      </p>
+      
+      
+      <h2>
+        Deep Dive
+      </h2>
+
+
+      <p>I'm interesting in learning more about vaccine equity in the
+
+      <select id="community-select" style="display:inline;">
+        <option value="black">Black</option>
+        <option value="hispanic">Hispanic</option>
+        <option value="white">White</option>
+        <option value="api">Asian or Pacific Islander</option>
+        <option value="na">Native American</option>
+      </select>
+      community.
+    </p>
+
+      <h2 id="deepdive">
+        How well are providers vaccinating the <span class="js-community-name"></span> community?
+      </h2>
+
+      <p>
+        Durham County is currently <span class="js-community-pop"></span>% <span class="js-community-name"></span>.
+        The bubbles in the chart represent different providers in Durham. Drag a bubble to see how changing the percent of those vaccinated would affect
+        the percentage across Durham.
+      </p>
+      
+      <p>
+        "Vaccinated" here means received at least one dose. The providers selected are those based in Durham who have provided over 2000 doses.
+      </p>
+
+      
+
+      <div class="chart-container" style="position: relative;">
+        <canvas id="bubble-chart-black"></canvas>
+      </div>
+      <div class="chart-container" style="position: relative;">
+        <canvas id="bubble-chart-hispanic"></canvas>
+      </div>
+      <div class="chart-container" style="position: relative;">
+        <canvas id="bubble-chart-white"></canvas>
+      </div>
+      <div class="chart-container" style="position: relative;">
+        <canvas id="bubble-chart-api"></canvas>
+      </div>
+      <div class="chart-container" style="position: relative;">
+        <canvas id="bubble-chart-na"></canvas>
+      </div>
+
+      <h1>
+        Data Sources
+      </h1>
+      
+      <ul>
+        <li>
+          <a href="https://www.census.gov/quickfacts/fact/table/durhamcountynorthcarolina/PST045219">US Census Quick Facts for Durham County</a>
+        </li>
+        <li>
+          <a href="https://covid19.ncdhhs.gov/dashboard/cases-demographics">North Carolina COVID-19 Case Demographics</a>
+        </li>
+        <li>
+          <a href="https://durhampublichealth-durhamnc.hub.arcgis.com/pages/vaccine-distribution">Durham County Coronavirus Data Hub</a>
+        </li>
+      </ul>
+      
+      <h1 id="calculator">
+        What do we need to do to achieve equity?
+      </h1>
+      <p>
+        Use the calculator below to compute the rate at which vaccines are needed to close the gap.
+      </p>
+
+      <iframe src="https://harveyshi.com/vaccine-calc/" width="100%" height="3000px" frameBorder="0"/>
+    </main>
+  </body>
+</html>
